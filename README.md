@@ -15,4 +15,4 @@
 - more
 
 
-[demo]:matthew-sun.github.io/labs/heat-calculation
+[demo]:http://matthew-sun.github.io/labs/heat-calculation/
