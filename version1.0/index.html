@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>卡路里消耗计算器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="src/css/normalize.css">
+</head>
+<body>
+    <h1>卡路里消耗计算器</h1>
+    <div>
+        体重：<input type="text" id="d_weight">kg
+    </div>
+    <ul id="J_output"></ul>
+    <div>
+        <select size="1" id="J_selectOptions"></select>
+        <input type="text" id="d_minutes">分钟
+        <button id="J_add">增加</button>
+    </div>
+    <button id="J_calculate">计算</button>
+    <div>
+        运动热量消耗卡路里：<span id="J_outResult">0</span>大卡
+    </div>
+    <script src="src/js/index.js"></script>
+</body>
+</html>

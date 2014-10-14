@@ -3,24 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>卡路里消耗计算器</title>
+    <meta name="keywords" content="减肥，卡路里消耗，计算器" />
+    <meta name="description" content="卡路里消耗计算器是运动减肥的必备工具，只要在填写您的体重和相应运动项目的时间，就可以算出今天活动消耗的卡路里哦，赶紧试试吧！"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="stylesheet" href="src/css/font-awesome.min.css">
+    <link rel="stylesheet" href="src/css/index.css">
 </head>
 <body>
-    <h1>卡路里消耗计算器</h1>
-    <div>
-        体重：<input type="text" id="d_weight">kg
-    </div>
-    <ul id="J_output"></ul>
-    <div>
-        <select size="1" id="J_selectOptions"></select>
-        <input type="text" id="d_minutes">分钟
-        <button id="J_add">增加</button>
-    </div>
-    <button id="J_calculate">计算</button>
-    <div>
-        运动热量消耗卡路里：<span id="J_outResult">0</span>大卡
-    </div>
-    <script src="src/js/index.js"></script>
+    <section>
+        <header class="header">
+            <h1 class="title">卡路里消耗计算器</h1>
+        </header>
+
+        <section class="main">
+
+            <div class="weight">
+                <span class="w_txt">输入体重：</span>
+                <input type="text" class="w_inputkg" placeholder="0">
+                <span class="w_kg">（公斤）</span>
+            </div>
+            
+            <div class="sports">
+                
+                <!-- pannel -->
+                <div class="menu_pannel">
+                    <span class="m_num">0</span>
+                    <span class="m_tit">运动</span>
+                    <a href="javascript:;" class="add_item">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <i class="m_line"></i>
+                </div>
+                
+                <!-- item -->
+                <div class="item_list">
+                    <ul>
+                        <!-- <li>
+                            <span class="i_tit">游泳（中度）</span>
+                            <a href="javascript:;" class="remove_item">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                            <span class="i_time"><span>60</span>分钟</span>
+                        </li> -->
+                    </ul>
+                </div>
+                
+                <!-- result -->
+                <div class="result">
+                    <p class="r_txt">燃烧的卡路里：<span class="r_num">0</span>大卡</p>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+    <section class="options">
+        <header class="o_head">
+            <a href="javascript:;" class="o_back">
+                <i class="fa fa-chevron-left"></i>
+                返回
+            </a>
+            <a href="javascript:;" class="o_sure">
+                确定
+            </a>
+        </header>
+        <ul class="options_list">
+            <!-- <li>
+                <span class="o_tit">休息</span>
+                <span class="o_time"><input type="text" placeholder="0" class="o_minute">分钟</span>
+                <a href="javascript:;" class="o_okay on">
+                    <span class="o_round"></span>
+                </a>
+            </li> -->
+        </ul>
+    </section>
 </body>
+<script src="src/js/zepto.js"></script>
+<script src="src/js/index.js"></script>
 </html>
