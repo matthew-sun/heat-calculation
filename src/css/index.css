@@ -52,7 +52,7 @@ input, input:focus, button, button:focus{outline:none;outline:1px !important;}
 /* item */
 .item_list {overflow: hidden;width: 90%;margin: 0 auto;}
 .item_list li {height: 28px;border: 1px solid #c1c4bc;border-radius: 3px;background-color: #fff;border-top: 0;line-height: 28px;}
-.item_list li .i_tit {color: #000;margin-left: 14px;max-width: 160px;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;}
+.item_list li .i_tit {color: #000;margin-left: 14px;max-width: 160px;display:inline-block;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;}
 .item_list li .i_time {color: #777;float: right;margin-right: 6px;}
 .item_list li .remove_item {display: inline-block;float: right;width: 46px;height: 29px;text-align: center;color: #ff3b30;font-size: 1.5rem;}
 

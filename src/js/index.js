@@ -176,7 +176,7 @@ var bindEvents = (function() {
     $weight.on('keyup',function() {
 
         if( isNumber($weight.val()) ) {
-            // calculate();
+            calculate();
 
             if($weight.val() > 300) {
                 alert('请输入您正确的体重！');
@@ -215,29 +215,43 @@ var bindEvents = (function() {
             alert('请选择一项运动');
             return ;
         }
-        cache.push(tempCache);
+
+        for(var i=0,len=tempCache.length; i<len; i++) {
+            cache.push(tempCache[i]);
+        }
         tempCache = [];
-        console.log(cache)
+
         $('.o_minute').val('');
         $('.o_okay').removeClass('on');
         $options.hide();
         $index.show();
+
+        var pushHtml = '' ,
+            $items = $('#J_items');
+        for(var i=0,len=cache.length; i<len; i++) {
+
+            pushHtml += '\
+                        <li>\
+                            <span class="i_tit">'+ cache[i][0] +'</span>\
+                            <a href="javascript:;" class="remove_item">\
+                                <i class="fa fa-minus"></i>\
+                            </a>\
+                            <span class="i_time"><span>'+ cache[i][1] +'</span>分钟</span>\
+                        </li> ' 
+        }
+
+        $items.html(pushHtml);
+        calculate();
+
+        var $removeItem = $('.remove_item');
+        $removeItem.on('click',function() {
+            var position = $(this).index();
+            $(this).parent().remove();
+            cache.splice(position,1);
+            calculate();
+        })
+
     })
-
-
-    // bindEvent(oAddBtn,'click',function() {
-    //     addItem();
-    // })
-
-    // bindEvent(minute,'keyup',function(e) {
-    //     if( e.keyCode == 13 ) {
-    //         addItem();
-    //     }
-    // })
-
-    // bindEvent(oCalculate,'click',function() {
-    //     calculate();
-    // })
 
 })();
 
@@ -262,7 +276,6 @@ function sureItem(obj) {
     tempCache.push(tempArr);
 
     obj.addClass('on');
-
 
 }
 
@@ -318,26 +331,24 @@ function sureItem(obj) {
 //     oUl.removeChild(event.target.parentNode);
 // }
 
-// /**
-//  * 计算所消耗热量
-//  * 单位：卡路里
-//  */
+/**
+ * 计算所消耗热量
+ * 单位：卡路里
+ */
 
-// function calculate() {
+function calculate() {
+    var weight = $('#J_weight').val() ,
+        $oResult = $('#J_outResult') ,
+        result = 0;
 
-//     var weight = document.getElementById('d_weight').value ,
-//         oResult = document.getElementById('J_outResult') ,
-//         result = 0;
+    if(cache.length > 0) {
+        for(var i=0,len=cache.length; i<len; i++) {
+            result += Math.floor(weight*HEAT_CONSUMPTION_DATA[cache[i][0]]*cache[i][1]/60);
+        }
+    }else {
+        result = 0;
+    }
+    
+    $oResult.html(result);
 
-//     if( !isNumber(weight) ) {
-//         alert('请输入您正确的体重！');
-//         return ;
-//     }
-
-//     for(var i=0,len=cache.length; i<len; i++) {
-//         result += Math.floor(weight*HEAT_CONSUMPTION_DATA[cache[i][0]]*cache[i][1]/60);
-//     }
-
-//     oResult.innerText = result;
-
-// }
+}
