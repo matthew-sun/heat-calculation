@@ -186,7 +186,6 @@ var bindEvents = (function() {
         }else {
             alert('请输入您正确的体重！');
         }
-
     })
 
     $oAddBtn.on('click',function() {
@@ -199,7 +198,6 @@ var bindEvents = (function() {
             var me = $(this);
             sureItem(me);
         })
-
     })
 
     $back.on('click',function() {
@@ -211,44 +209,13 @@ var bindEvents = (function() {
     })
 
     $sure.on('click',function() {
-        if(tempCache.length == 0) {
-            alert('请选择一项运动');
-            return ;
-        }
-
-        for(var i=0,len=tempCache.length; i<len; i++) {
-            cache.push(tempCache[i]);
-        }
-        tempCache = [];
-
-        $('.o_minute').val('');
-        $('.o_okay').removeClass('on');
-        $options.hide();
-        $index.show();
-
-        var pushHtml = '' ,
-            $items = $('#J_items');
-        for(var i=0,len=cache.length; i<len; i++) {
-
-            pushHtml += '\
-                        <li>\
-                            <span class="i_tit">'+ cache[i][0] +'</span>\
-                            <a href="javascript:;" class="remove_item">\
-                                <i class="fa fa-minus"></i>\
-                            </a>\
-                            <span class="i_time"><span>'+ cache[i][1] +'</span>分钟</span>\
-                        </li> ' 
-        }
-
-        $items.html(pushHtml);
+        sureItemList();
         calculate();
 
         var $removeItem = $('.remove_item');
         $removeItem.on('click',function() {
-            var position = $(this).index()-1;
-            $(this).parent().remove();
-            cache.splice(position,1);
-            calculate();
+            var me = $(this);
+            removeItem(me);
         })
 
     })
@@ -303,4 +270,55 @@ function calculate() {
 
     $oResult.html(result);
 
+}
+
+
+/**
+ * 确定一个项目组
+ */
+function sureItemList() {
+    var $index = $('#J_index') ,
+        $options = $('#J_options') ;
+
+    if(tempCache.length == 0) {
+        alert('请选择一项运动');
+        return ;
+    }
+
+    for(var i=0,len=tempCache.length; i<len; i++) {
+        cache.push(tempCache[i]);
+    }
+    tempCache = [];
+
+    $('.o_minute').val('');
+    $('.o_okay').removeClass('on');
+    $options.hide();
+    $index.show();
+
+    var pushHtml = '' ,
+        $items = $('#J_items');
+    for(var i=0,len=cache.length; i<len; i++) {
+
+        pushHtml += '\
+                    <li>\
+                        <span class="i_tit">'+ cache[i][0] +'</span>\
+                        <a href="javascript:;" class="remove_item">\
+                            <i class="fa fa-minus"></i>\
+                        </a>\
+                        <span class="i_time"><span>'+ cache[i][1] +'</span>分钟</span>\
+                    </li> ' 
+    }
+
+    $items.html(pushHtml);
+}
+
+
+/**
+ * 删除一个项
+ */
+function removeItem(me) {
+    var position = me.index()-1;
+    me.parent().remove();
+    cache.splice(position,1);
+    calculate();
 }
