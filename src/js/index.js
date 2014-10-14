@@ -147,7 +147,7 @@ var setup = (function() {
         pushHtml += '\
             <li>\
                 <span class="o_tit">'+ aKeys[i] +'</span>\
-                <span class="o_time"><input type="text" placeholder="0" class="o_minute">分钟</span>\
+                <span class="o_time"><input type="number" placeholder="0" class="o_minute">分钟</span>\
                 <a href="javascript:;" class="o_okay">\
                     <span class="o_round"></span>\
                 </a>\
