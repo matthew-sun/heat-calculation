@@ -2,7 +2,7 @@
  * @author matthewsun
  *
  * @description 运动热量卡路里计算器
- * @version 1.0 初版
+ * @version 1.1 移动支持
  * 
  * @link matthew-sun@foxmail.com
  * @date 2014/10/13
@@ -131,22 +131,30 @@ HEAT_CONSUMPTION_DATA = {
 }
 
 // 数据缓存
-var cache = [];
+var cache = [] ,
+    tempCache = [];
 
 /**
  * 初始化select框
  */
 
-var initSelect = (function() {
-    var oSelect = document.getElementById('J_selectOptions'),
+var setup = (function() {
+    var $oSelect = $('#J_selectOptions') ,
         aKeys = keys(HEAT_CONSUMPTION_DATA),
         pushHtml = '';
 
     for( var i=0,len=aKeys.length; i<len; i++) {
-        pushHtml += '<option value="'+ i +'">'+ aKeys[i] +'</option>';
+        pushHtml += '\
+            <li>\
+                <span class="o_tit">'+ aKeys[i] +'</span>\
+                <span class="o_time"><input type="text" placeholder="0" class="o_minute">分钟</span>\
+                <a href="javascript:;" class="o_okay">\
+                    <span class="o_round"></span>\
+                </a>\
+            </li>';
     }
 
-    oSelect.innerHTML = pushHtml; 
+    $oSelect.html(pushHtml);
 
 })();
 
@@ -154,99 +162,182 @@ var initSelect = (function() {
  * 添加事件
  */
 
-var addEvent = (function() {
-    var oAddBtn = document.getElementById('J_add') ,
-        minute = document.getElementById('d_minutes'),
-        oCalculate = document.getElementById('J_calculate');
+var bindEvents = (function() {
+    var $weight = $('#J_weight') ,
+        $oAddBtn = $('#J_addItem') ,
+        $back = $('#J_back') ,
+        $sure = $('#J_sure') ,
+        $index = $('#J_index') ,
+        $options = $('#J_options') ;
 
-    bindEvent(oAddBtn,'click',function() {
-        addItem();
-    })
+    // 处理点透bug
+    FastClick.attach(document.body);
 
-    bindEvent(minute,'keyup',function(e) {
-        if( e.keyCode == 13 ) {
-            addItem();
+    $weight.on('keyup',function() {
+
+        if( isNumber($weight.val()) ) {
+            // calculate();
+
+            if($weight.val() > 300) {
+                alert('请输入您正确的体重！');
+                return ;
+            }
+
+        }else {
+            alert('请输入您正确的体重！');
         }
+
     })
 
-    bindEvent(oCalculate,'click',function() {
-        calculate();
+    $oAddBtn.on('click',function() {
+        var $okay = $('.o_okay') ;
+
+        $index.hide();
+        $options.show();
+
+        $okay.on('click',function() {
+            var me = $(this);
+            sureItem(me);
+        })
+
     })
+
+    $back.on('click',function() {
+        tempCache = [];
+        $('.o_minute').val('');
+        $('.o_okay').removeClass('on');
+        $options.hide();
+        $index.show();
+    })
+
+    $sure.on('click',function() {
+        if(tempCache.length == 0) {
+            alert('请选择一项运动');
+            return ;
+        }
+        cache.push(tempCache);
+        tempCache = [];
+        console.log(cache)
+        $('.o_minute').val('');
+        $('.o_okay').removeClass('on');
+        $options.hide();
+        $index.show();
+    })
+
+
+    // bindEvent(oAddBtn,'click',function() {
+    //     addItem();
+    // })
+
+    // bindEvent(minute,'keyup',function(e) {
+    //     if( e.keyCode == 13 ) {
+    //         addItem();
+    //     }
+    // })
+
+    // bindEvent(oCalculate,'click',function() {
+    //     calculate();
+    // })
 
 })();
 
 /**
- * 增加一个项
+ * 确认运动以及时间选项
+ * 
+ * @param  {[type]} obj $(this)
  */
-function addItem() {
-    var oSelect = document.getElementById('J_selectOptions') ,
-        option = oSelect.options[oSelect.selectedIndex].text ,
-        minute = document.getElementById('d_minutes').value ,
-        oUl = document.getElementById('J_output');
-        pushHtml = '' ,
-        aData = [] ;
 
-    if( option === '' ) {
-        alert('请选择一项运动');
-        return ;
-    }else if( !isNumber(minute) ) {
-        alert('请输入正确的运动的时间');
+function sureItem(obj) {
+    var itemName = obj.siblings('.o_tit').text() ,
+        itemTime = obj.siblings('.o_time').find('.o_minute').val() ,
+        tempArr = [];
+
+    if( !isNumber(itemTime) || itemTime == 0) {
+        alert('请输入正确的运动的时间！');
         return ;
     }
 
-    pushHtml = '<li>运动：'+ option +'，时间：'+ minute +'分钟<a href="javascript:;" onclick="removeItem(event);">删除</a></li>';
+    tempArr.push(itemName);
+    tempArr.push(itemTime);
+    tempCache.push(tempArr);
+
+    obj.addClass('on');
+
+
+}
+
+// /**
+//  * 增加一个项
+//  */
+// function addItem() {
+//     var oSelect = document.getElementById('J_selectOptions') ,
+//         option = oSelect.options[oSelect.selectedIndex].text ,
+//         minute = document.getElementById('d_minutes').value ,
+//         oUl = document.getElementById('J_output');
+//         pushHtml = '' ,
+//         aData = [] ;
+
+//     if( option === '' ) {
+//         alert('请选择一项运动');
+//         return ;
+//     }else if( !isNumber(minute) ) {
+//         alert('请输入正确的运动的时间');
+//         return ;
+//     }
+
+//     pushHtml = '<li>运动：'+ option +'，时间：'+ minute +'分钟<a href="javascript:;" onclick="removeItem(event);">删除</a></li>';
     
-    aData.push(option);
-    aData.push(minute);
-    cache.push(aData);
+//     aData.push(option);
+//     aData.push(minute);
+//     cache.push(aData);
 
-    oUl.innerHTML += pushHtml;
+//     oUl.innerHTML += pushHtml;
 
-}
+// }
 
-/**
- * 删除一个项
- */
-function removeItem(event) {
-    var oUl = document.getElementById('J_output') ,
-        aLi = oUl.getElementsByTagName('li') ,
-        position = -1;
+// /**
+//  * 删除一个项
+//  */
+// function removeItem(event) {
+//     var oUl = document.getElementById('J_output') ,
+//         aLi = oUl.getElementsByTagName('li') ,
+//         position = -1;
 
-    Array.prototype.forEach.call(aLi,function(li,index){
-        if( event.target.parentNode == li ) {
-            position = index;
-        }
-    })
+//     Array.prototype.forEach.call(aLi,function(li,index){
+//         if( event.target.parentNode == li ) {
+//             position = index;
+//         }
+//     })
 
-    if( position === -1) {
-        return ;
-    }else {
-        cache.splice(position,1);
-    }
+//     if( position === -1) {
+//         return ;
+//     }else {
+//         cache.splice(position,1);
+//     }
 
-    oUl.removeChild(event.target.parentNode);
-}
+//     oUl.removeChild(event.target.parentNode);
+// }
 
-/**
- * 计算所消耗热量
- * 单位：卡路里
- */
+// /**
+//  * 计算所消耗热量
+//  * 单位：卡路里
+//  */
 
-function calculate() {
+// function calculate() {
 
-    var weight = document.getElementById('d_weight').value ,
-        oResult = document.getElementById('J_outResult') ,
-        result = 0;
+//     var weight = document.getElementById('d_weight').value ,
+//         oResult = document.getElementById('J_outResult') ,
+//         result = 0;
 
-    if( !isNumber(weight) ) {
-        alert('请输入您正确的体重！');
-        return ;
-    }
+//     if( !isNumber(weight) ) {
+//         alert('请输入您正确的体重！');
+//         return ;
+//     }
 
-    for(var i=0,len=cache.length; i<len; i++) {
-        result += Math.floor(weight*HEAT_CONSUMPTION_DATA[cache[i][0]]*cache[i][1]/60);
-    }
+//     for(var i=0,len=cache.length; i<len; i++) {
+//         result += Math.floor(weight*HEAT_CONSUMPTION_DATA[cache[i][0]]*cache[i][1]/60);
+//     }
 
-    oResult.innerText = result;
+//     oResult.innerText = result;
 
-}
+// }

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="src/css/index.css">
 </head>
 <body>
-    <section>
+    <section id="J_index">
         <header class="header">
             <h1 class="title">卡路里消耗计算器</h1>
         </header>
@@ -19,7 +19,7 @@
 
             <div class="weight">
                 <span class="w_txt">输入体重：</span>
-                <input type="text" class="w_inputkg" placeholder="0">
+                <input type="text" class="w_inputkg" id="J_weight" placeholder="0">
                 <span class="w_kg">（公斤）</span>
             </div>
             
@@ -29,7 +29,7 @@
                 <div class="menu_pannel">
                     <span class="m_num">0</span>
                     <span class="m_tit">运动</span>
-                    <a href="javascript:;" class="add_item">
+                    <a href="javascript:;" class="add_item" id="J_addItem">
                         <i class="fa fa-plus"></i>
                     </a>
                     <i class="m_line"></i>
@@ -57,17 +57,17 @@
         </section>
     </section>
 
-    <section class="options">
+    <section class="options" id="J_options">
         <header class="o_head">
-            <a href="javascript:;" class="o_back">
+            <a href="javascript:;" class="o_back" id="J_back">
                 <i class="fa fa-chevron-left"></i>
                 返回
             </a>
-            <a href="javascript:;" class="o_sure">
+            <a href="javascript:;" class="o_sure" id="J_sure">
                 确定
             </a>
         </header>
-        <ul class="options_list">
+        <ul class="options_list" id="J_selectOptions">
             <!-- <li>
                 <span class="o_tit">休息</span>
                 <span class="o_time"><input type="text" placeholder="0" class="o_minute">分钟</span>
@@ -79,5 +79,6 @@
     </section>
 </body>
 <script src="src/js/zepto.js"></script>
+<script src="src/js/fastclick.js"></script>
 <script src="src/js/index.js"></script>
 </html>
