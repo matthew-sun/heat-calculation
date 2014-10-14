@@ -195,7 +195,7 @@ var bindEvents = (function() {
         $index.hide();
         $options.show();
 
-        $okay.on('click',function() {
+        $okay.off().on('click',function() {
             var me = $(this);
             sureItem(me);
         })
@@ -245,7 +245,7 @@ var bindEvents = (function() {
 
         var $removeItem = $('.remove_item');
         $removeItem.on('click',function() {
-            var position = $(this).index();
+            var position = $(this).index()-1;
             $(this).parent().remove();
             cache.splice(position,1);
             calculate();
@@ -338,17 +338,21 @@ function sureItem(obj) {
 
 function calculate() {
     var weight = $('#J_weight').val() ,
-        $oResult = $('#J_outResult') ,
+        $oResult = $('#J_outResult') , 
+        $nums = $('#J_itemNums') ,
         result = 0;
 
     if(cache.length > 0) {
         for(var i=0,len=cache.length; i<len; i++) {
             result += Math.floor(weight*HEAT_CONSUMPTION_DATA[cache[i][0]]*cache[i][1]/60);
         }
+        $nums.addClass('on');
     }else {
         result = 0;
+        $nums.removeClass('on');
     }
-    
+    $nums.html(cache.length);
+
     $oResult.html(result);
 
 }
