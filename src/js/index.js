@@ -279,58 +279,6 @@ function sureItem(obj) {
 
 }
 
-// /**
-//  * 增加一个项
-//  */
-// function addItem() {
-//     var oSelect = document.getElementById('J_selectOptions') ,
-//         option = oSelect.options[oSelect.selectedIndex].text ,
-//         minute = document.getElementById('d_minutes').value ,
-//         oUl = document.getElementById('J_output');
-//         pushHtml = '' ,
-//         aData = [] ;
-
-//     if( option === '' ) {
-//         alert('请选择一项运动');
-//         return ;
-//     }else if( !isNumber(minute) ) {
-//         alert('请输入正确的运动的时间');
-//         return ;
-//     }
-
-//     pushHtml = '<li>运动：'+ option +'，时间：'+ minute +'分钟<a href="javascript:;" onclick="removeItem(event);">删除</a></li>';
-    
-//     aData.push(option);
-//     aData.push(minute);
-//     cache.push(aData);
-
-//     oUl.innerHTML += pushHtml;
-
-// }
-
-// /**
-//  * 删除一个项
-//  */
-// function removeItem(event) {
-//     var oUl = document.getElementById('J_output') ,
-//         aLi = oUl.getElementsByTagName('li') ,
-//         position = -1;
-
-//     Array.prototype.forEach.call(aLi,function(li,index){
-//         if( event.target.parentNode == li ) {
-//             position = index;
-//         }
-//     })
-
-//     if( position === -1) {
-//         return ;
-//     }else {
-//         cache.splice(position,1);
-//     }
-
-//     oUl.removeChild(event.target.parentNode);
-// }
-
 /**
  * 计算所消耗热量
  * 单位：卡路里
