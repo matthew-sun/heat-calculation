@@ -342,7 +342,7 @@ function removeItem(me) {
 
 function resizeSection() {
 
-    var oWidth = $(window).width() > 1024 ? 1024 : $(window).width() ,
+    var oWidth = $(window).width() ,
         oHeight = $(window).height();
 
     $('.layer').css({
