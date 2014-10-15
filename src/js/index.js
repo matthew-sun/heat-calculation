@@ -156,6 +156,7 @@ var setup = (function() {
 
     $oSelect.html(pushHtml);
 
+
 })();
 
 /**
@@ -193,6 +194,8 @@ var bindEvents = (function() {
 
         $index.hide();
         $options.show();
+        
+        var myScroll = new IScroll('#J_iwrapper', { scrollX: false, freeScroll: true });
 
         $okay.off().on('click',function() {
             var me = $(this);

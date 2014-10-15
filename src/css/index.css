@@ -63,12 +63,31 @@ input, input:focus, button, button:focus{outline:none;outline:1px !important;}
 
 /* options */
 .options {display: none;}
-.options .o_head {height: 44px;background-color: #1fa67a;line-height: 44px;overflow: hidden;}
+.options .o_head {height: 44px;background-color: #1fa67a;line-height: 44px;overflow: hidden;
+
+position: absolute;
+z-index: 2;
+top: 0;
+left: 0;
+width: 100%;
+padding: 0;
+}
 .options .o_back {float: left;color: #b0ddce;margin-left: 10px;}
 .options .o_sure {float: right;color: #fff;margin-right: 10px;}
 
 /* options_list */
-.options_list {overflow: hidden;}
+.iwrapper {
+position: absolute;
+z-index: 1;
+top: 44px;
+bottom: 0;
+left: 0;
+width: 100%;
+overflow: hidden;
+}
+.options_list {
+position: absolute;
+}
 .options_list li {overflow: hidden;border-bottom: 1px solid #ccc;height: 30px;}
 .options_list .o_tit {color: #000;width: 67.5%;text-align: center;display: inline-block;line-height: 30px;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;float: left;}
 .options_list .o_time {line-height: 30px;float: left;}
