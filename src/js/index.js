@@ -179,12 +179,12 @@ var bindEvents = (function() {
 
         $weight.on('blur',function() {
             if( isNumber($weight.val()) ) {
-                calculate();
 
                 if($weight.val() > 300) {
                     alert('请输入您正确的体重！');
                     return ;
                 }
+                calculate();
 
             }else {
                 alert('请输入您正确的体重！');
