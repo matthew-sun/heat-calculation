@@ -9,6 +9,8 @@
 
 ![二维码地址][url]
 
+博文地址：[制作运动卡路里消耗计算器（移动端）]
+
 ###ToDo
 
 1. angularJs版本
@@ -18,3 +20,4 @@
 
 [url]:./src/img/url.png
 [demo]:http://www.fehouse.com/usr/themes/fe/labs/heat-calculation/
+[制作运动卡路里消耗计算器（移动端）]:http://www.fehouse.com/index.php/archives/15/
