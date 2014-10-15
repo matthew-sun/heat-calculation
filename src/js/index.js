@@ -133,6 +133,9 @@ HEAT_CONSUMPTION_DATA = {
 // 数据缓存
 var cache = [] ,
     tempCache = [];
+    
+// kontext效果
+var k = kontext( document.querySelector( '.kontext' ) );
 
 /**
  * 初始化select框
@@ -153,6 +156,14 @@ var setup = (function() {
 
     $oSelect.html(pushHtml);
 
+    var oWidth = $(window).width() > 1024 ? 1024 : $(window).width() ,
+        oHeight = $(window).height();
+
+    $('.layer').css({
+        width : oWidth ,
+        height : oHeight
+    })
+
 })();
 
 /**
@@ -169,6 +180,7 @@ var bindEvents = (function() {
 
     // 处理点透bug
     FastClick.attach(document.body);
+    
 
     // 体重框事件绑定
     $weight.on('keyup',function() {
@@ -190,8 +202,7 @@ var bindEvents = (function() {
     $oAddBtn.on('click',function() {
         var $okay = $('.o_okay') ;
 
-        $index.hide();
-        $options.show();
+        k.show( 1 );
         
         new IScroll('#J_iwrapper', { scrollX: false, freeScroll: true });
 
@@ -202,8 +213,7 @@ var bindEvents = (function() {
         tempCache = [];
         $('.o_minute').val('');
         $('.o_okay').removeClass('on');
-        $options.hide();
-        $index.show();
+        k.show( 0 );
     })
 
     // 确定
@@ -295,8 +305,7 @@ function sureItemList() {
 
     $('.o_minute').val('');
     $('.o_okay').removeClass('on');
-    $options.hide();
-    $index.show();
+    k.show( 0 );
 
     var pushHtml = '' ,
         $items = $('#J_items');

@@ -1,6 +1,5 @@
 /*===== 样式重置 =====*/
 html,body,h1,h2,h3,h4,h5,h6,hr,p,iframe,dl,dt,dd,ul,ol,li,pre,form,fieldset,button,input,textarea,th,td{margin:0;padding:0;}
-html{overflow-y:scroll;}
 body{height:100%; background-color:#eee;}
 body{font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3"; font-size: 14px; line-height: 1.4;
                                                 min-width: 320px; max-width: 1024px; min-height: 100%; margin: 0 auto; color:#777;}
@@ -30,6 +29,9 @@ input, input:focus, button, button:focus{outline:none;outline:1px !important;}
 
 /*===== 快捷样式类名 =====*/
 .hidden{display:none;}
+
+/* layer */
+.layer {background-color: #eee;}
 
 /* header */
 .header {height: 44px;background-color: #1fa67a;}
@@ -62,16 +64,8 @@ input, input:focus, button, button:focus{outline:none;outline:1px !important;}
 .result .r_txt .r_num {font-size:2.2rem;font-weight: 700;color: #21b384;font-family: Arial;margin-right: 4px;}
 
 /* options */
-.options {display: none;}
-.options .o_head {height: 44px;background-color: #1fa67a;line-height: 44px;overflow: hidden;
-
-position: absolute;
-z-index: 2;
-top: 0;
-left: 0;
-width: 100%;
-padding: 0;
-}
+.options {overflow: hidden;position: relative;left: 0;top: 0;}
+.options .o_head {height: 44px;background-color: #1fa67a;line-height: 44px;overflow: hidden;position: absolute;z-index: 2;top: 0;left: 0;width: 100%;padding: 0;}
 .options .o_back {float: left;color: #b0ddce;margin-left: 10px;}
 .options .o_sure {float: right;color: #fff;margin-right: 10px;}
 
@@ -79,6 +73,6 @@ padding: 0;
 .iwrapper {position: absolute;z-index: 1;top: 44px;bottom: 0;left: 0;width: 100%;overflow: hidden;}
 .options_list {overflow: hidden;}
 .options_list li {overflow: hidden;border-bottom: 1px solid #ccc;height: 30px;}
-.options_list .o_tit {color: #000;width: 80%;text-align: center;display: inline-block;line-height: 30px;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;float: left;}
-.options_list .o_time {line-height: 30px;float: left;width: 20%;}
+.options_list .o_tit {color: #000;width: 87%;text-align: center;display: inline-block;line-height: 30px;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;float: left;}
+.options_list .o_time {line-height: 30px;float: left;width: 13%;}
 .options_list .o_time .o_minute {width: 30px;border: 0;text-align: center;background-color: #d4d8d0;margin-right: 2px;}
