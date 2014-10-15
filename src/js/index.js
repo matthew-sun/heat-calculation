@@ -148,14 +148,10 @@ var setup = (function() {
             <li>\
                 <span class="o_tit">'+ aKeys[i] +'</span>\
                 <span class="o_time"><input type="number" placeholder="0" class="o_minute">分钟</span>\
-                <a href="javascript:;" class="o_okay">\
-                    <span class="o_round"></span>\
-                </a>\
             </li>';
     }
 
     $oSelect.html(pushHtml);
-
 
 })();
 
@@ -174,6 +170,7 @@ var bindEvents = (function() {
     // 处理点透bug
     FastClick.attach(document.body);
 
+    // 体重框事件绑定
     $weight.on('keyup',function() {
 
         if( isNumber($weight.val()) ) {
@@ -189,20 +186,18 @@ var bindEvents = (function() {
         }
     })
 
+    // 增加item按钮事件绑定
     $oAddBtn.on('click',function() {
         var $okay = $('.o_okay') ;
 
         $index.hide();
         $options.show();
         
-        var myScroll = new IScroll('#J_iwrapper', { scrollX: false, freeScroll: true });
+        new IScroll('#J_iwrapper', { scrollX: false, freeScroll: true });
 
-        $okay.off().on('click',function() {
-            var me = $(this);
-            sureItem(me);
-        })
     })
 
+    // 返回
     $back.on('click',function() {
         tempCache = [];
         $('.o_minute').val('');
@@ -211,6 +206,7 @@ var bindEvents = (function() {
         $index.show();
     })
 
+    // 确定
     $sure.on('click',function() {
         sureItemList();
         calculate();
@@ -224,30 +220,6 @@ var bindEvents = (function() {
     })
 
 })();
-
-/**
- * 确认运动以及时间选项
- * 
- * @param  {[type]} obj $(this)
- */
-
-function sureItem(obj) {
-    var itemName = obj.siblings('.o_tit').text() ,
-        itemTime = obj.siblings('.o_time').find('.o_minute').val() ,
-        tempArr = [];
-
-    if( !isNumber(itemTime) || itemTime == 0) {
-        alert('请输入正确的运动的时间！');
-        return ;
-    }
-
-    tempArr.push(itemName);
-    tempArr.push(itemTime);
-    tempCache.push(tempArr);
-
-    obj.addClass('on');
-
-}
 
 /**
  * 计算所消耗热量
@@ -283,8 +255,36 @@ function sureItemList() {
     var $index = $('#J_index') ,
         $options = $('#J_options') ;
 
+    var $minute = $('.o_minute') ,
+        itemName = '' ,
+        itemTime = 0 ,
+        tip = '' ,
+        tempArr = [];
+
+    $minute.each(function() {
+
+        if( isNumber($(this).val()) && $(this).val() > 0 ) {
+            tempArr = [];
+            itemName = $(this).parent().siblings('.o_tit').text();
+            itemTime = $(this).val() ;
+
+            tempArr.push(itemName);
+            tempArr.push(itemTime);
+            tempCache.push(tempArr);
+        }
+
+        if( $(this).val() ) {
+            tip = '请输入正确的运动的时间！';
+        }
+
+    })
+
+    if(tip === '') {
+        tip = '请选择一项运动！';
+    }
+
     if(tempCache.length == 0) {
-        alert('请选择一项运动');
+        alert(tip);
         return ;
     }
 
