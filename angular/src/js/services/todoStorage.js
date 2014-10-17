@@ -1,0 +1,18 @@
+/**
+ * Services that persists and retrieves TODOs from localStorage
+ */
+angular.module('heatcalculation')
+	.factory('todoStorage', function () {
+
+		var STORAGE_ID = 'todos-heat1';
+
+		return {
+			get: function () {
+				return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+			},
+
+			put: function (calCache) {
+				localStorage.setItem(STORAGE_ID, JSON.stringify(calCache));
+			}
+		};
+	});

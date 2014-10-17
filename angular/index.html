@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" ng-app>
+<html lang="zh-cn" data-framework="angularjs">
 <head>
     <meta charset="UTF-8">
     <title>运动卡路里消耗计算器</title>
@@ -9,69 +9,73 @@
     <link rel="stylesheet" href="src/css/font-awesome.min.css">
     <link rel="stylesheet" href="src/css/index.css">
 </head>
-<body>
-    <section id="J_index">
+<body ng-app="heatcalculation">
+    <ng-view />
+
+    <script type="text/ng-template" id="heat-index.html">
         <header class="header">
             <h1 class="title">运动卡路里消耗计算器</h1>
         </header>
 
         <section class="main">
 
-            <div class="weight" ng-controller="weightCtrl">
+            <div class="weight">
                 <span class="w_txt">输入体重：</span>
-                <input type="number" class="w_inputkg" id="J_weight" ng-model="cal_weight" placeholder="0">
+                <input type="number" class="w_inputkg" ng-model="calCache.weight" placeholder="0">
                 <span class="w_kg">（公斤）</span>
             </div>
             
             <div class="sports">
                 
-                <!-- pannel -->
                 <div class="menu_pannel">
-                    <span class="m_num" id="J_itemNums">0</span>
+                    <span class="m_num">0</span>
                     <span class="m_tit">运动</span>
-                    <a href="javascript:;" class="add_item" id="J_addItem">
+                    <a href="#/add" class="add_item">
                         <i class="fa fa-plus"></i>
                     </a>
                     <i class="m_line"></i>
                 </div>
                 
-                <!-- item -->
                 <div class="item_list">
                     <ul id="J_items"></ul>
                 </div>
                 
-                <!-- result -->
                 <div class="result">
-                    <p class="r_txt">燃烧的卡路里：<span class="r_num" id="J_outResult">0</span>大卡</p>
+                    <p class="r_txt">燃烧的卡路里：<span class="r_num">{{outResult}}</span>大卡</p>
                 </div>
             </div>
 
         </section>
-    </section>
 
-    <section class="options" id="J_options">
+    </script>
+
+    <script type="text/ng-template" id="heat-additem.html">
+
         <header class="o_head">
-            <a href="javascript:;" class="o_back" id="J_back">
+            <a href="#" class="o_back">
                 <i class="fa fa-chevron-left"></i>
                 返回
             </a>
-            <a href="javascript:;" class="o_sure" id="J_sure">
+            <a href="javascript:;" class="o_sure" ng-click="sureItem()">
                 确定
             </a>
         </header>
         <div id="J_iwrapper" class="iwrapper">
-            <ul class="options_list" id="J_selectOptions" ng-controller="ItemsCtrl">
-                <li ng-repeat="member in itemsName">
-                    <span class="o_tit">{{member}}</span>
-                    <span class="o_time"><input type="number" placeholder="0" class="o_minute">分钟</span>
+            <ul class="options_list" >
+                <li ng-repeat="member in cache">
+                    <span class="o_tit">{{member.name}}</span>
+                    <span class="o_time"><input type="number" placeholder="0" ng-model="member.minute" class="o_minute">分钟</span>
                 </li>
             </ul>
         </div>
-    </section>
+
+    </script>
 </body>
-<script src="src/js/zepto.js"></script>
-<script src="src/js/angular.js"></script>
 <script src="src/js/fastclick.js"></script>
-<script src="src/js/iscroll.js"></script>
-<script src="src/js/index.js"></script>
+<script>FastClick.attach(document.body);</script>
+<script src="src/js/angular.js"></script>
+<script src="src/js/angular-route.js"></script>
+<script src="src/js/app.js"></script>
+<script src="src/js/controllers/heatCtrl.js"></script>
+<script src="src/js/services/todoStorage.js"></script>
 </html>

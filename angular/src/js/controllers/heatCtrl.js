@@ -1,27 +1,4 @@
-/**
- * @author matthewsun
- *
- * @description 运动热量卡路里计算器
- * angularjs版本
- * 
- * @link matthew-sun@foxmail.com
- * @date 2014/10/13
- */
-
-/**
- * 获取键值
- * 
- * @param  {[type]} obj [description]
- * @return {[type]}     [description]
- */
-
-var keys = function(obj) {
-    var keys = [];
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) keys.push(key)
-    }
-    return keys;
-}
+/*global angular */
 
 HEAT_CONSUMPTION_DATA = {
     
@@ -104,12 +81,81 @@ HEAT_CONSUMPTION_DATA = {
     '台球' : 2.01
 }
 
-var ItemsCtrl = function($scope,$rootScope) {
-    $scope.itemsName = keys(HEAT_CONSUMPTION_DATA);
+angular.module('heatcalculation')
+	.controller('heatCtrl', function heatCtrl($scope, $location, $filter, todoStorage) {
 
-    
-}
+		// 初始化items
+		// $scope.cache = [];
 
-var weightCtrl = function($rootScope,$scope) {
-    $rootScope.cal_weight = 0;
-}
+        var calCache = $scope.calCache = todoStorage.get();
+
+        $scope.$watch('calCache', function (newValue, oldValue) {
+            if (newValue !== oldValue) { // This prevents unneeded calls to the local storage
+                todoStorage.put(calCache);
+            }
+        }, true);
+
+        console.log(calCache)
+
+		// angular.forEach(HEAT_CONSUMPTION_DATA,function(value,key) {
+
+		// 	var item = {};
+		// 	item.name = key;
+		// 	item.K = value;
+		// 	item.minute = '';
+
+		// 	this.push(item);
+
+		// },$scope.cache);
+
+		// // 消耗卡路里值
+		// // $scope.outResult = (function(){
+
+		// // 	var result = 0;
+
+  // //           if(calCache.items) {
+  // //               for( var i=0,len=calCache.items.length; i<len; i++ ) {
+  // //                   result += Math.floor( calCache.weight * calCache.items[i].minute/60 * calCache.items[i].K );
+  // //               }
+  // //           }
+
+		// // 	return result;
+
+		// // })();
+
+		// // // sure item
+		// // $scope.sureItem = function() {
+		// // 	var turn = false;
+  // //           var tips = '请选择一项运动！';
+
+		// // 	for(var i=0,len=$scope.cache.length; i<len; i++) {
+		// // 		if( $scope.cache[i].minute != '' ) {
+  // //                   if( $scope.cache[i].minute > 0 ) {
+  // //                       turn = true;
+  // //                   }else {
+  // //                       tips = '请输入正确的时间！';
+  // //                   }
+		// // 		}
+		// // 	}
+
+  // //           if( turn ) {
+
+  // //               for(var i=0,len=$scope.cache.length; i<len; i++) {
+  // //                   if( $scope.cache[i].minute != '' ) {
+  // //                       if(!calCache.items) {
+  // //                           calCache.items = [];
+  // //                       }
+  // //                       calCache.items.push([$scope.cache[i].name,$scope.cache[i].minute]);
+  // //                   }
+  // //               }
+
+  // //           }else {
+  // //               alert(tips);
+  // //           }
+
+  // //           // console.log(calCache)
+  // //           $location.path('/')
+
+		// // }
+
+	});
