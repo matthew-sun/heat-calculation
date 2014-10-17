@@ -4,14 +4,13 @@
 angular.module('heatcalculation')
 	.factory('todoStorage', function () {
 
-		var STORAGE_ID = 'todos-heat1';
 
 		return {
-			get: function () {
+			get: function (STORAGE_ID) {
 				return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
 			},
 
-			put: function (calCache) {
+			put: function (calCache,STORAGE_ID) {
 				localStorage.setItem(STORAGE_ID, JSON.stringify(calCache));
 			}
 		};

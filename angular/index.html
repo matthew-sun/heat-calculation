@@ -21,7 +21,7 @@
 
             <div class="weight">
                 <span class="w_txt">输入体重：</span>
-                <input type="number" class="w_inputkg" ng-model="calCache.weight" placeholder="0">
+                <input type="number" class="w_inputkg" ng-model="weight" placeholder="0">
                 <span class="w_kg">（公斤）</span>
             </div>
             
@@ -30,7 +30,7 @@
                 <div class="menu_pannel">
                     <span class="m_num">0</span>
                     <span class="m_tit">运动</span>
-                    <a href="#/add" class="add_item">
+                    <a href="#/add" class="add_item" ng-click="tik()">
                         <i class="fa fa-plus"></i>
                     </a>
                     <i class="m_line"></i>
